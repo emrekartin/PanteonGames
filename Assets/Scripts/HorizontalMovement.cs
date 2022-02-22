@@ -32,7 +32,20 @@ public class HorizontalMovement : MonoBehaviour
     {
         if (!finishGame)
         {
-            
+
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            if (Input.GetMouseButton(0))
+            {
+                axesX = Input.GetAxis("Mouse X") * 2f;
+            }
+            else
+            {
+                axesX = 0;
+            }
+
+#else
+           
+
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
@@ -45,7 +58,8 @@ public class HorizontalMovement : MonoBehaviour
             {
                 axesX = 0;
             }
-
+            
+#endif
             newX = transform.position.x + xSpeed * axesX * Time.deltaTime;
             newX = Mathf.Clamp(newX, -limitX, limitX);
             newZ = transform.position.z + runSpeed * Time.deltaTime;

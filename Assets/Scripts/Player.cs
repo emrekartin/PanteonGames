@@ -64,12 +64,12 @@ public class Player : MonoBehaviour
             if (collision.gameObject.GetComponent<RotatingPlatform>().counterclockwise)
             {
                 HorizontalMovement.horizontalMovement.transform.position = Vector3.Lerp(HorizontalMovement.horizontalMovement.transform.position, (HorizontalMovement.horizontalMovement.transform.position + (-HorizontalMovement.horizontalMovement.transform.right)), Time.deltaTime * 5f);
-                if(HorizontalMovement.horizontalMovement.transform.position.x > 3f)
+                if(HorizontalMovement.horizontalMovement.transform.position.x < -3.3f)
                 {
                     _playerAnimator.SetBool("isFalling", true);
                     LevelManagement.levelManagement.GameOver.SetActive(true);
                     GameManager.gameManager.RetryPrefab.SetActive(true);
-
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                     move = false;
                 }
             }
